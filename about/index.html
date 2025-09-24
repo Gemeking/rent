@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Shegabet</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-brown: #8B4513;
+      --dark-brown: #654321;
+      --light-brown: #D2B48C;
+      --accent-gold: #D4AF37;
+      --text-dark: #333333;
+      --text-light: #666666;
+      --background-light: #F5F5F5;
+      --white: #FFFFFF;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --border-radius: 8px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--background-light);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--accent-gold);
+      margin: 0.5rem 0;
+      border-radius: 2px;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background: var(--primary-brown);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--dark-brown);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-brown);
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      transition: color 0.3s ease;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary-brown);
+      background-color: rgba(139, 69, 19, 0.1);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--primary-brown);
+      margin: 3px 0;
+      transition: 0.3s;
+    }
+
+    /* About Hero Section */
+    .about-hero {
+      position: relative;
+      height: 50vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                  url('https://i.imgur.com/7vK2W3c.jpg') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+      padding: 0 20px;
+    }
+
+    .about-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .about-hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+    }
+
+    /* About Content Section */
+    .about-content {
+      padding: 5rem 0;
+      background: var(--white);
+    }
+
+    .about-text {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+
+    .about-text h2 {
+      color: var(--primary-brown);
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .about-text ul {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+
+    .about-text li {
+      padding: 0.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .about-text li::before {
+      content: "✔";
+      color: var(--accent-gold);
+      font-weight: bold;
+      display: inline-block;
+      width: 1.5em;
+    }
+
+    /* Values Section */
+    .values {
+      padding: 5rem 0;
+      background: var(--background-light);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .value-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .value-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: var(--light-brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--primary-brown);
+    }
+
+    .value-card h3 {
+      color: var(--primary-brown);
+      margin-bottom: 1rem;
+    }
+
+    /* Team Section */
+    .team {
+      padding: 5rem 0;
+      background: var(--white);
+      text-align: center;
+    }
+
+    .team h2 {
+      text-align: center;
+    }
+
+    .team h2::after {
+      margin: 0.5rem auto;
+    }
+
+    .team-members {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .member {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .member:hover {
+      transform: translateY(-5px);
+    }
+
+    .member-img {
+      height: 250px;
+      overflow: hidden;
+    }
+
+    .member-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .member:hover .member-img img {
+      transform: scale(1.05);
+    }
+
+    .member-info {
+      padding: 1.5rem;
+    }
+
+    .member-info h3 {
+      color: var(--primary-brown);
+      margin-bottom: 0.5rem;
+    }
+
+    .member-info p {
+      color: var(--text-light);
+    }
+
+    /* Stats Section */
+    .stats {
+      padding: 5rem 0;
+      background: linear-gradient(rgba(139, 69, 19, 0.9), rgba(139, 69, 19, 0.9)), 
+                  url('https://i.imgur.com/7vK2W3c.jpg') no-repeat center center/cover;
+      color: var(--white);
+      text-align: center;
+    }
+
+    .stats h2 {
+      color: var(--white);
+    }
+
+    .stats h2::after {
+      background: var(--accent-gold);
+      margin: 0.5rem auto;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .stat-item {
+      padding: 2rem;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--accent-gold);
+    }
+
+    .stat-label {
+      font-size: 1.2rem;
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 5rem 0;
+      background: var(--background-light);
+      text-align: center;
+    }
+
+    .cta h2 {
+      color: var(--primary-brown);
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-brown);
+      color: var(--white);
+      padding: 3rem 0 1rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      color: var(--light-brown);
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--light-brown);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: var(--light-brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--accent-gold);
+    }
+
+    .social-links img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--white);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 2rem;
+        transition: left 0.3s ease;
+      }
+      
+      .nav-links.active {
+        left: 0;
+      }
+      
+      .about-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      
+      .footer-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <a href="/" class="logo">
+        <span>Shegabet</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/browse">Browse</a></li>
+        <li><a href="/about" class="active">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/signup" class="btn">Sign Up</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- About Hero Section -->
+  <section class="about-hero">
+    <div class="container">
+      <h1>About Shegabet</h1>
+      <p>Your trusted platform to find and rent homes across Ethiopia</p>
+    </div>
+  </section>
+
+  <!-- About Content Section -->
+  <section class="about-content">
+    <div class="container">
+      <div class="about-text">
+        <h2>Who We Are</h2>
+        <p>
+          Shegabet is Ethiopia's premier online home rental platform, designed to make finding your perfect home simple and stress-free. 
+          Founded in 2023, we connect thousands of Ethiopians with quality rental properties across major cities including Addis Ababa, 
+          Adama, Bahir Dar, and more.
+        </p>
+        <p>
+          Our platform brings together property owners and tenants in a transparent, efficient marketplace. We verify all listings to ensure 
+          accuracy and provide tools that make the rental process smooth for everyone involved.
+        </p>
+      </div>
+
+      <div class="about-text">
+        <h2>Our Mission</h2>
+        <p>
+          Our mission is to revolutionize home renting in Ethiopia by providing a platform that is accessible, reliable, and easy to use. 
+          We believe everyone deserves to find a home they love without the traditional hassles of property searching.
+        </p>
+        <p>
+          Whether you're looking for a single room, a family apartment, or a luxury villa, Shegabet provides powerful search tools, 
+          transparent pricing in Ethiopian Birr, and detailed property information to help you make the right decision.
+        </p>
+      </div>
+
+      <div class="about-text">
+        <h2>Why Choose Us?</h2>
+        <ul>
+          <li>Wide variety of verified rental listings across Ethiopia</li>
+          <li>Advanced search filters by location, price, and property type</li>
+          <li>Secure platform with verified property owners</li>
+          <li>Transparent pricing in Ethiopian Birr</li>
+          <li>Dedicated customer support team</li>
+          <li>Mobile-friendly design for on-the-go searching</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values">
+    <div class="container">
+      <h2>Our Values</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">✓</div>
+          <h3>Trust & Transparency</h3>
+          <p>We verify all property listings and provide accurate information to build trust between owners and tenants.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">❤</div>
+          <h3>Customer Focus</h3>
+          <p>Our platform is designed with user experience in mind, making property searching intuitive and efficient.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🌍</div>
+          <h3>Ethiopian Focus</h3>
+          <p>We're dedicated to serving the Ethiopian rental market with local expertise and understanding.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team">
+    <div class="container">
+      <h2>Meet Our Team</h2>
+      <div class="team-members">
+        <div class="member">
+          <div class="member-img">
+            <img src="https://i.imgur.com/6X8Qb2E.jpg" alt="Abebe Kebede">
+          </div>
+          <div class="member-info">
+            <h3>Abebe Kebede</h3>
+            <p>Founder & CEO</p>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-img">
+            <img src="https://i.imgur.com/9zL7v3a.jpg" alt="Hana Teshome">
+          </div>
+          <div class="member-info">
+            <h3>Hana Teshome</h3>
+            <p>Operations Manager</p>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-img">
+            <img src="https://i.imgur.com/5tK9j7L.jpg" alt="Getahun Alemu">
+          </div>
+          <div class="member-info">
+            <h3>Getahun Alemu</h3>
+            <p>Lead Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="container">
+      <h2>Our Impact</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">5,000+</div>
+          <div class="stat-label">Properties Listed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">12+</div>
+          <div class="stat-label">Cities Covered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15,000+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to Find Your Next Home?</h2>
+      <p>Join thousands of Ethiopians who have found their perfect rental through Shegabet</p>
+      <a href="/browse" class="btn">Browse Properties</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Shegabet</h3>
+          <p>Ethiopia's premier rental platform connecting people with their perfect homes since 2023.</p>
+          <div class="social-links">
+            <a href="#"><span>FB</span></a>
+            <a href="#"><span>TW</span></a>
+            <a href="#"><span>IG</span></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/browse">Browse Properties</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>For Property Owners</h3>
+          <ul>
+            <li><a href="/list-property">List Your Property</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/resources">Owner Resources</a></li>
+            <li><a href="/faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <ul>
+            <li>📞 +251 911 234 567</li>
+            <li>✉️ info@shegabet.com</li>
+            <li>📍 Addis Ababa, Ethiopia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Shegabet. All Rights Reserved.</p>
+        <ul class="footer-links">
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/cookies">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

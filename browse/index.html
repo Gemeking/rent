@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Rentals – Shegabet</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-brown: #8B4513;
+      --dark-brown: #654321;
+      --light-brown: #D2B48C;
+      --accent-gold: #D4AF37;
+      --text-dark: #333333;
+      --text-light: #666666;
+      --background-light: #F5F5F5;
+      --white: #FFFFFF;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --border-radius: 8px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--background-light);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--accent-gold);
+      margin: 0.5rem 0;
+      border-radius: 2px;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background: var(--primary-brown);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--dark-brown);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--primary-brown);
+      padding: 12px 24px;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid var(--primary-brown);
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-brown);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-brown);
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      transition: color 0.3s ease;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary-brown);
+      background-color: rgba(139, 69, 19, 0.1);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--primary-brown);
+      margin: 3px 0;
+      transition: 0.3s;
+    }
+
+    /* Filters Section */
+    .filters {
+      padding: 3rem 0;
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .filters h1 {
+      text-align: center;
+      color: var(--primary-brown);
+      margin-bottom: 2rem;
+    }
+
+    .filter-bar {
+      background: rgba(210, 180, 140, 0.1);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      max-width: 1000px;
+      margin: 0 auto;
+      box-shadow: var(--shadow);
+    }
+
+    .filter-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .filter-inputs input, 
+    .filter-inputs select {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .filter-inputs input:focus, 
+    .filter-inputs select:focus {
+      border-color: var(--primary-brown);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
+    }
+
+    .filter-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .filter-actions button {
+      background: var(--primary-brown);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .filter-actions button:hover {
+      background: var(--dark-brown);
+    }
+
+    .filter-actions a {
+      color: var(--primary-brown);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .filter-actions a:hover {
+      text-decoration: underline;
+    }
+
+    /* Results Info */
+    .results-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      margin-bottom: 1rem;
+    }
+
+    .results-info p {
+      margin: 0;
+      color: var(--text-light);
+    }
+
+    .sort-options {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .sort-options select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+    }
+
+    /* Listings Section */
+    .listings {
+      padding: 3rem 0;
+    }
+
+    .listing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-image {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-image img {
+      transform: scale(1.05);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--accent-gold);
+      color: var(--white);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-content h3 {
+      margin-bottom: 0.5rem;
+      color: var(--primary-brown);
+    }
+
+    .location {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .location::before {
+      content: "📍";
+      margin-right: 5px;
+    }
+
+    .property-details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .property-details span {
+      display: flex;
+      align-items: center;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-brown);
+      margin-bottom: 1rem;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .card-actions .btn {
+      flex: 1;
+      text-align: center;
+      margin-right: 0.5rem;
+    }
+
+    .favorite-btn {
+      background: transparent;
+      border: 1px solid var(--primary-brown);
+      color: var(--primary-brown);
+      padding: 10px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .favorite-btn:hover {
+      background: rgba(139, 69, 19, 0.1);
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 3rem;
+    }
+
+    .pagination a {
+      display: inline-block;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+
+    .pagination a:hover, .pagination a.active {
+      background: var(--primary-brown);
+      color: var(--white);
+      border-color: var(--primary-brown);
+    }
+
+    /* Quick Filters */
+    .quick-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .quick-filter {
+      background: var(--white);
+      padding: 10px 20px;
+      border-radius: 30px;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .quick-filter:hover, .quick-filter.active {
+      background: var(--primary-brown);
+      color: var(--white);
+      border-color: var(--primary-brown);
+    }
+
+    /* Map Toggle */
+    .map-toggle {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1.5rem;
+    }
+
+    .map-toggle button {
+      background: var(--white);
+      border: 1px solid #ddd;
+      padding: 10px 20px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .map-toggle button:hover, .map-toggle button.active {
+      background: var(--primary-brown);
+      color: var(--white);
+      border-color: var(--primary-brown);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-brown);
+      color: var(--white);
+      padding: 3rem 0 1rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      color: var(--light-brown);
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--light-brown);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: var(--light-brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--accent-gold);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--white);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 2rem;
+        transition: left 0.3s ease;
+      }
+      
+      .nav-links.active {
+        left: 0;
+      }
+      
+      .filter-inputs {
+        grid-template-columns: 1fr;
+      }
+      
+      .filter-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .results-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .listing-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .card-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .card-actions .btn {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      
+      .footer-links {
+        justify-content: center;
+      }
+    }
+
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      overflow-x: hidden;
+    }
+    
+    /* Hero Section Styles */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -2;
+      animation: zoomInOut 20s infinite alternate;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(74, 0, 224, 0.7) 0%, rgba(142, 45, 226, 0.6) 100%);
+      z-index: -1;
+    }
+    
+    .hero-content {
+      text-align: center;
+      color: white;
+      max-width: 1200px;
+      padding: 0 20px;
+      animation: fadeInUp 1.5s ease-out;
+    }
+    
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      animation: slideInFromLeft 1s ease-out;
+    }
+    
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: slideInFromRight 1s ease-out;
+    }
+    
+    /* Search Bar Styles */
+    .search-bar {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      max-width: 1000px;
+      margin: 0 auto;
+      animation: bounceIn 1.5s ease-out;
+      transition: transform 0.3s ease;
+    }
+    
+    .search-bar:hover {
+      transform: translateY(-5px);
+    }
+    
+    .search-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .search-inputs input,
+    .search-inputs select {
+      padding: 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+    
+    .search-inputs input:focus,
+    .search-inputs select:focus {
+      outline: none;
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+      transform: scale(1.02);
+    }
+    
+    .search-inputs button {
+      padding: 15px 25px;
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      grid-column: 1 / -1;
+      margin-top: 10px;
+    }
+    
+    .search-inputs button:hover {
+      background: linear-gradient(135deg, #6d28d9, #5b21b6);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+    }
+    
+    /* Floating elements animation */
+    .floating-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+    
+    .floating-element {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+    }
+    
+    .floating-element:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 10%;
+      left: 10%;
+      animation-duration: 20s;
+    }
+    
+    .floating-element:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      top: 70%;
+      left: 80%;
+      animation-duration: 25s;
+      animation-delay: 2s;
+    }
+    
+    .floating-element:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      top: 20%;
+      left: 85%;
+      animation-duration: 18s;
+      animation-delay: 1s;
+    }
+    
+    .floating-element:nth-child(4) {
+      width: 100px;
+      height: 100px;
+      top: 80%;
+      left: 15%;
+      animation-duration: 22s;
+      animation-delay: 3s;
+    }
+    
+    /* Animations */
+    @keyframes zoomInOut {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.1);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideInFromLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slideInFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 0.9;
+        transform: scale(1.05);
+      }
+      80% {
+        opacity: 1;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate(20px, 40px) rotate(90deg);
+      }
+      50% {
+        transform: translate(0, 80px) rotate(180deg);
+      }
+      75% {
+        transform: translate(-20px, 40px) rotate(270deg);
+      }
+      100% {
+        transform: translate(0, 0) rotate(360deg);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+      
+      .search-inputs {
+        grid-template-columns: 1fr;
+      }
+      
+      .search-bar {
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-content p {
+        font-size: 1rem;
+      }
+      
+      .search-inputs input,
+      .search-inputs select {
+        padding: 12px;
+      }
+    }
+  </style>
+ 
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <span>Shegabet</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/browse" class="active">Browse</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/signup" class="btn">Sign Up</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="floating-elements">
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Find Your Next Home with Shegabet</h1>
+      <p>Browse apartments, houses, and villas across Ethiopia's beautiful cities.</p>
+      <form class="search-bar">
+        <div class="search-inputs">
+          <input type="text" placeholder="Enter location (Addis Ababa, Adama, etc.)">
+          <select>
+            <option value="">House Type</option>
+            <option value="apartment">Apartment</option>
+            <option value="villa">Villa</option>
+            <option value="studio">Studio</option>
+            <option value="house">House</option>
+          </select>
+          <input type="number" placeholder="Min Price (Birr)">
+          <input type="number" placeholder="Max Price (Birr)">
+          <select>
+            <option value="">Rooms</option>
+            <option value="1">1 Room</option>
+            <option value="2">2 Rooms</option>
+            <option value="3">3+ Rooms</option>
+          </select>
+          <button type="submit">Search</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Quick Filters -->
+    <div class="quick-filters">
+      <div class="quick-filter active">All Properties</div>
+      <div class="quick-filter">Apartments</div>
+      <div class="quick-filter">Houses</div>
+      <div class="quick-filter">Villas</div>
+      <div class="quick-filter">Budget Friendly</div>
+      <div class="quick-filter">Luxury</div>
+    </div>
+
+    <!-- Results Info and Sorting -->
+    <div class="results-info">
+      <p>Showing <strong>1-6</strong> of <strong>124</strong> properties</p>
+      <div class="sort-options">
+        <label for="sort">Sort by:</label>
+        <select id="sort">
+          <option value="newest">Newest First</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="popular">Most Popular</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Map Toggle -->
+    <div class="map-toggle">
+      <button class="active">📋 List View</button>
+      <button>🗺️ Map View</button>
+    </div>
+
+    <!-- Listings Section -->
+    <section class="listings">
+      <div class="listing-grid">
+        <!-- Card 1 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://images.ethiopiapropertycentre.com/properties/images/thumbs/8771/068cd445977f32-luxury-2-bedroom-apartment-for-rent-kirkos-addis-ababa.jpg" alt="Modern Apartment in Addis Ababa">
+            <span class="featured-badge">Featured</span>
+          </div>
+          <div class="card-content">
+            <h3>Modern 2-Bedroom Apartment</h3>
+            <p class="location">Bole, Addis Ababa</p>
+            <div class="property-details">
+              <span>🛏️ 2 Bedrooms</span>
+              <span>🚿 2 Bathrooms</span>
+              <span>📏 120 m²</span>
+            </div>
+            <p class="price">8,500 Birr/month</p>
+            <div class="card-actions">
+              <a href="/property" class="btn">View Details</a>
+              <button class="favorite-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://www.ethiopianproperties.com/wp-content/uploads/2021/10/16125CEF-DFA2-4247-9AFB-AF77D686906A.jpeg" alt="Luxury Villa in Adama">
+            <span class="featured-badge">Featured</span>
+          </div>
+          <div class="card-content">
+            <h3>Luxury 4-Bedroom Villa</h3>
+            <p class="location">Adama, Oromia</p>
+            <div class="property-details">
+              <span>🛏️ 4 Bedrooms</span>
+              <span>🚿 3 Bathrooms</span>
+              <span>📏 280 m²</span>
+            </div>
+            <p class="price">15,000 Birr/month</p>
+            <div class="card-actions">
+              <a href="/property" class="btn">View Details</a>
+              <button class="favorite-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://a0.muscache.com/im/pictures/miso/Hosting-709424233055774872/original/b3d1814a-f79e-4ad8-b4be-2dd4737b79ce.jpeg?im_w=720" alt="Studio Apartment in Bahir Dar">
+          </div>
+          <div class="card-content">
+            <h3>Cozy Studio Apartment</h3>
+            <p class="location">Near Lake Tana, Bahir Dar</p>
+            <div class="property-details">
+              <span>🛏️ 1 Bedroom</span>
+              <span>🚿 1 Bathroom</span>
+              <span>📏 45 m²</span>
+            </div>
+            <p class="price">3,500 Birr/month</p>
+            <div class="card-actions">
+              <a href="/property" class="btn">View Details</a>
+              <button class="favorite-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqNGZonU3KnjtTvispVFBJUYEFFT2BAcXhlw&s" alt="Family House in Mekelle">
+          </div>
+          <div class="card-content">
+            <h3>Spacious Family House</h3>
+            <p class="location">Mekelle, Tigray</p>
+            <div class="property-details">
+              <span>🛏️ 3 Bedrooms</span>
+              <span>🚿 2 Bathrooms</span>
+              <span>📏 180 m²</span>
+            </div>
+            <p class="price">7,000 Birr/month</p>
+            <div class="card-actions">
+              <a href="/property" class="btn">View Details</a>
+              <button class="favorite-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://ethiopiarealty.com/wp-content/uploads/2023/09/Real-Estate-Apartment-For-Sale-In-Ayat-49-Addis-Ababa-image-1-592x444-1.jpg" alt="Modern Apartment in Hawassa">
+            <span class="featured-badge">New</span>
+          </div>
+          <div class="card-content">
+            <h3>Modern 1-Bedroom Apartment</h3>
+            <p class="location">Hawassa, Sidama</p>
+            <div class="property-details">
+              <span>🛏️ 1 Bedroom</span>
+              <span>🚿 1 Bathroom</span>
+              <span>📏 65 m²</span>
+            </div>
+            <p class="price">4,500 Birr/month</p>
+            <div class="card-actions">
+              <a href="/property" class="btn">View Details</a>
+              <button class="favorite-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcKnqBiADnNUcS79LIEjhFQdwRDEhYYGoaQQ&s" alt="Luxury Penthouse in Addis Ababa">
+            <span class="featured-badge">Luxury</span>
+          </div>
+          <div class="card-content">
+            <h3>Luxury 3-Bedroom Penthouse</h3>
+            <p class="location">Bole, Addis Ababa</p>
+            <div class="property-details">
+              <span>🛏️ 3 Bedrooms</span>
+              <span>🚿 3 Bathrooms</span>
+              <span>📏 220 m²</span>
+            </div>
+            <p class="price">25,000 Birr/month</p>
+            <div class="card-actions">
+              <a href="/property" class="btn">View Details</a>
+              <button class="favorite-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <a href="#">« Previous</a>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">Next »</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+   <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo">
+            <img src="https://i.imgur.com/8xJ9vq8.png" alt="Shegabet Logo">
+            <span>Shegabet</span>
+          </div>
+          <p>Ethiopia's premier rental platform connecting people with their perfect homes since 2023.</p>
+          <div class="social-links">
+            <a href="#"><img src="https://i.imgur.com/8xJ9vq8.png" alt="Facebook"></a>
+            <a href="#"><img src="https://i.imgur.com/8xJ9vq8.png" alt="Twitter"></a>
+            <a href="#"><img src="https://i.imgur.com/8xJ9vq8.png" alt="Instagram"></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/browse">Browse Properties</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>For Property Owners</h3>
+          <ul>
+            <li><a href="/list-property">List Your Property</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/resources">Owner Resources</a></li>
+            <li><a href="/faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <ul>
+            <li>📞 +251 911 234 567</li>
+            <li>✉️ info@shegabet.com</li>
+            <li>📍 Addis Ababa, Ethiopia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Shegabet. All Rights Reserved.</p>
+        <ul class="footer-links">
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/cookies">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const searchInputs = document.querySelectorAll('.search-inputs input, .search-inputs select');
+      
+      searchInputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.parentElement.style.transform = 'translateY(-8px)';
+          this.parentElement.parentElement.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.25)';
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.parentElement.style.transform = 'translateY(-5px)';
+          this.parentElement.parentElement.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
+        });
+      });
+      
+      // Add typing effect to the heading
+      const heading = document.querySelector('.hero-content h1');
+      const originalText = heading.textContent;
+      heading.textContent = '';
+      
+      let i = 0;
+      const typeWriter = () => {
+        if (i < originalText.length) {
+          heading.textContent += originalText.charAt(i);
+          i++;
+          setTimeout(typeWriter, 50);
+        }
+      };
+      
+      // Start typing animation after a short delay
+      setTimeout(typeWriter, 500);
+    });
+
+
+
+
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+
+    // Quick filters functionality
+    const quickFilters = document.querySelectorAll('.quick-filter');
+    quickFilters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        quickFilters.forEach(f => f.classList.remove('active'));
+        filter.classList.add('active');
+        
+        // In a real app, this would filter the listings
+        console.log(`Filtering by: ${filter.textContent}`);
+      });
+    });
+
+    // Map toggle functionality
+    const mapToggleButtons = document.querySelectorAll('.map-toggle button');
+    mapToggleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        mapToggleButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        // In a real app, this would switch between list and map views
+        if (button.textContent.includes('Map')) {
+          console.log('Switching to map view');
+        } else {
+          console.log('Switching to list view');
+        }
+      });
+    });
+
+    // Favorite button functionality
+    const favoriteButtons = document.querySelectorAll('.favorite-btn');
+    favoriteButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        this.classList.toggle('active');
+        
+        if (this.classList.contains('active')) {
+          this.innerHTML = '❤️';
+          this.style.background = 'rgba(139, 69, 19, 0.1)';
+          this.style.borderColor = 'var(--primary-brown)';
+          console.log('Added to favorites');
+        } else {
+          this.innerHTML = '🤍';
+          this.style.background = 'transparent';
+          this.style.borderColor = '#ddd';
+          console.log('Removed from favorites');
+        }
+      });
+    });
+
+    // Reset filters functionality
+    document.getElementById('reset-filters').addEventListener('click', function(e) {
+      e.preventDefault();
+      const form = document.querySelector('.filter-bar');
+      form.reset();
+      console.log('Filters reset');
+    });
+
+    // Sort functionality
+    document.getElementById('sort').addEventListener('change', function() {
+      console.log(`Sorting by: ${this.value}`);
+      // In a real app, this would reorder the listings
+    });
+  </script>
+</body>
+</html>

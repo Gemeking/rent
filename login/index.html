@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Shegabet</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/script.js" defer></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <span>Shegabet</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/browse" >Browse</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/login" class="active">Login</a></li>
+        <li><a href="/signup" class="btn">Sign Up</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Login Section -->
+  <main>
+    <section class="auth-section">
+      <div class="login-container">
+        <h1>Login to Shegabet</h1>
+        <form id="loginForm">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="6">
+
+          <div class="form-links">
+            <a href="#">Forgot Password?</a>
+          </div>
+
+          <button type="submit">Login</button>
+        </form>
+
+        <p class="signup-text">
+          Don't have an account? <a href="/signup">Sign Up</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+ <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo">
+            <img src="https://i.imgur.com/8xJ9vq8.png" alt="Shegabet Logo">
+            <span>Shegabet</span>
+          </div>
+          <p>Ethiopia's premier rental platform connecting people with their perfect homes since 2023.</p>
+          <div class="social-links">
+            <a href="#"><img src="https://i.imgur.com/8xJ9vq8.png" alt="Facebook"></a>
+            <a href="#"><img src="https://i.imgur.com/8xJ9vq8.png" alt="Twitter"></a>
+            <a href="#"><img src="https://i.imgur.com/8xJ9vq8.png" alt="Instagram"></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/browse">Browse Properties</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>For Property Owners</h3>
+          <ul>
+            <li><a href="/list-property">List Your Property</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/resources">Owner Resources</a></li>
+            <li><a href="/faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <ul>
+            <li>📞 +251 911 234 567</li>
+            <li>✉️ info@shegabet.com</li>
+            <li>📍 Addis Ababa, Ethiopia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Shegabet. All Rights Reserved.</p>
+        <ul class="footer-links">
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/cookies">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS for Front-End Validation -->
+  <script>
+    const form = document.getElementById('loginForm');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // prevent actual submission
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      let errors = [];
+
+      if (!email) {
+        errors.push("Email is required");
+      } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+        errors.push("Enter a valid email");
+      }
+
+      if (!password) {
+        errors.push("Password is required");
+      } else if (password.length < 6) {
+        errors.push("Password must be at least 6 characters");
+      }
+
+      if (errors.length > 0) {
+        alert(errors.join("\n"));
+      } else {
+        alert("Login successful (frontend only!)");
+        // Here you can redirect to home or browse page
+        // window.location.href = "/browse";
+      }
+    });
+  </script>
+</body>
+</html>

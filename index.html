@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shegabet – Find Your Next Home</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      overflow-x: hidden;
+    }
+    
+    /* Hero Section Styles */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -2;
+      animation: zoomInOut 20s infinite alternate;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(74, 0, 224, 0.7) 0%, rgba(142, 45, 226, 0.6) 100%);
+      z-index: -1;
+    }
+    
+    .hero-content {
+      text-align: center;
+      color: white;
+      max-width: 1200px;
+      padding: 0 20px;
+      animation: fadeInUp 1.5s ease-out;
+    }
+    
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      animation: slideInFromLeft 1s ease-out;
+    }
+    
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: slideInFromRight 1s ease-out;
+    }
+    
+    /* Search Bar Styles */
+    .search-bar {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      max-width: 1000px;
+      margin: 0 auto;
+      animation: bounceIn 1.5s ease-out;
+      transition: transform 0.3s ease;
+    }
+    
+    .search-bar:hover {
+      transform: translateY(-5px);
+    }
+    
+    .search-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .search-inputs input,
+    .search-inputs select {
+      padding: 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+    
+    .search-inputs input:focus,
+    .search-inputs select:focus {
+      outline: none;
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+      transform: scale(1.02);
+    }
+    
+    .search-inputs button {
+      padding: 15px 25px;
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      grid-column: 1 / -1;
+      margin-top: 10px;
+    }
+    
+    .search-inputs button:hover {
+      background: linear-gradient(135deg, #6d28d9, #5b21b6);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+    }
+    
+    /* Floating elements animation */
+    .floating-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+    
+    .floating-element {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+    }
+    
+    .floating-element:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 10%;
+      left: 10%;
+      animation-duration: 20s;
+    }
+    
+    .floating-element:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      top: 70%;
+      left: 80%;
+      animation-duration: 25s;
+      animation-delay: 2s;
+    }
+    
+    .floating-element:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      top: 20%;
+      left: 85%;
+      animation-duration: 18s;
+      animation-delay: 1s;
+    }
+    
+    .floating-element:nth-child(4) {
+      width: 100px;
+      height: 100px;
+      top: 80%;
+      left: 15%;
+      animation-duration: 22s;
+      animation-delay: 3s;
+    }
+    
+    /* Animations */
+    @keyframes zoomInOut {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.1);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideInFromLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slideInFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 0.9;
+        transform: scale(1.05);
+      }
+      80% {
+        opacity: 1;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate(20px, 40px) rotate(90deg);
+      }
+      50% {
+        transform: translate(0, 80px) rotate(180deg);
+      }
+      75% {
+        transform: translate(-20px, 40px) rotate(270deg);
+      }
+      100% {
+        transform: translate(0, 0) rotate(360deg);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+      
+      .search-inputs {
+        grid-template-columns: 1fr;
+      }
+      
+      .search-bar {
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-content p {
+        font-size: 1rem;
+      }
+      
+      .search-inputs input,
+      .search-inputs select {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <a href="/" class="logo">
+        <span>Shegabet</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/browse">Browse</a></li>
+        <li><a href="/about" >About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/signup" class="btn">Sign Up</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- Hero Section -->
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="floating-elements">
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Find Your Next Home with Shegabet</h1>
+      <p>Browse apartments, houses, and villas across Ethiopia's beautiful cities.</p>
+      <form class="search-bar">
+        <div class="search-inputs">
+          <input type="text" placeholder="Enter location (Addis Ababa, Adama, etc.)">
+          <select>
+            <option value="">House Type</option>
+            <option value="apartment">Apartment</option>
+            <option value="villa">Villa</option>
+            <option value="studio">Studio</option>
+            <option value="house">House</option>
+          </select>
+          <input type="number" placeholder="Min Price (Birr)">
+          <input type="number" placeholder="Max Price (Birr)">
+          <select>
+            <option value="">Rooms</option>
+            <option value="1">1 Room</option>
+            <option value="2">2 Rooms</option>
+            <option value="3">3+ Rooms</option>
+          </select>
+          <button type="submit">Search</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Featured Listings -->
+  <section class="featured">
+    <div class="container">
+      <h2>Featured Listings</h2>
+      <div class="listing-grid">
+        <div class="card">
+          <div class="card-image">
+            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/616456369.jpg?k=bc0b60af7f9d13cbafe206182bfe27a5f30113814263948ab3955617a36dc065&o=&hp=1" alt="Modern Apartment in Addis Ababa">
+            <span class="featured-badge">Featured</span>
+          </div>
+          <div class="card-content">
+            <h3>Modern 2-Bedroom Apartment</h3>
+            <p class="location">Bole, Addis Ababa</p>
+            <div class="property-details">
+              <span>2 Bedrooms</span>
+              <span>2 Bathrooms</span>
+              <span>120 m²</span>
+            </div>
+            <p class="price">8,500 Birr/month</p>
+            <a href="/property" class="btn">View Details</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image">
+            <img src="https://images.ethiopiapropertycentre.com/properties/images/8675/068c57611d70b4-well-kept-4-bedroom-family-home-for-sale-lideta-addis-ababa.jpg" alt="Luxury Villa in Adama">
+            <span class="featured-badge">Featured</span>
+          </div>
+          <div class="card-content">
+            <h3>Luxury 4-Bedroom Villa</h3>
+            <p class="location">Adama, Oromia</p>
+            <div class="property-details">
+              <span>4 Bedrooms</span>
+              <span>3 Bathrooms</span>
+              <span>280 m²</span>
+            </div>
+            <p class="price">15,000 Birr/month</p>
+            <a href="/property" class="btn">View Details</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image">
+            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/623290411.jpg?k=c3c3bb456ceaaa2bab2875239634deb23355ec61045f90ad824ec73142f77f46&o=&hp=1" alt="Studio Apartment in Bahir Dar">
+            <span class="featured-badge">Featured</span>
+          </div>
+          <div class="card-content">
+            <h3>Cozy Studio Apartment</h3>
+            <p class="location">Near Lake Tana, Bahir Dar</p>
+            <div class="property-details">
+              <span>1 Bedroom</span>
+              <span>1 Bathroom</span>
+              <span>45 m²</span>
+            </div>
+            <p class="price">3,500 Birr/month</p>
+            <a href="/property" class="btn">View Details</a>
+          </div>
+        </div>
+      </div>
+      <div class="view-all">
+        <a href="/browse" class="btn-outline">View All Properties</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories">
+    <div class="container">
+      <h2>Browse by Category</h2>
+      <div class="category-grid">
+        <a href="/browse" class="category">
+          <div class="category-icon">
+            <img src="https://i.imgur.com/8xJ9vq8.png" alt="Apartments">
+          </div>
+          <h3>Apartments</h3>
+          <p>Modern apartments in city centers</p>
+        </a>
+        <a href="/browse" class="category">
+          <div class="category-icon">
+            <img src="https://i.imgur.com/8xJ9vq8.png" alt="Houses">
+          </div>
+          <h3>Houses</h3>
+          <p>Family homes with gardens</p>
+        </a>
+        <a href="/browse" class="category">
+          <div class="category-icon">
+            <img src="https://i.imgur.com/8xJ9vq8.png" alt="Villas">
+          </div>
+          <h3>Villas</h3>
+          <p>Luxury villas with amenities</p>
+        </a>
+        <a href="/browse" class="category">
+          <div class="category-icon">
+            <img src="https://i.imgur.com/8xJ9vq8.png" alt="Budget Rentals">
+          </div>
+          <h3>Budget Rentals</h3>
+          <p>Affordable options for everyone</p>
+        </a>
+        <a href="/browse" class="category">
+          <div class="category-icon">
+            <img src="https://i.imgur.com/8xJ9vq8.png" alt="Luxury Rentals">
+          </div>
+          <h3>Luxury Rentals</h3>
+          <p>Premium properties with amenities</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about-preview">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>Why Choose Shegabet?</h2>
+          <p>Shegabet is Ethiopia's trusted platform for finding homes. We connect renters with verified property owners across major cities including Addis Ababa, Adama, Bahir Dar, and more.</p>
+          <p>Our platform features detailed listings with high-quality photos, accurate pricing in Ethiopian Birr, and direct communication with property owners.</p>
+          <div class="about-stats">
+            <div class="stat">
+              <h3>5,000+</h3>
+              <p>Properties Listed</p>
+            </div>
+            <div class="stat">
+              <h3>12+</h3>
+              <p>Cities Covered</p>
+            </div>
+            <div class="stat">
+              <h3>98%</h3>
+              <p>Customer Satisfaction</p>
+            </div>
+          </div>
+          <a href="/about" class="btn">Learn More About Us</a>
+        </div>
+        <div class="about-image">
+          <img src="https://i.imgur.com/7vK2W3c.jpg" alt="Ethiopian Traditional House">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo">
+            <img src="https://i.imgur.com/8xJ9vq8.png" alt="Shegabet Logo">
+            <span>Shegabet</span>
+          </div>
+          <p>Ethiopia's premier rental platform connecting people with their perfect homes since 2023.</p>
+          <div class="social-links">
+            <a href="#"><img src="https://i.imgur.com/8xJ9vq8.png" alt="Facebook"></a>
+            <a href="#"><img src="https://i.imgur.com/8xJ9vq8.png" alt="Twitter"></a>
+            <a href="#"><img src="https://i.imgur.com/8xJ9vq8.png" alt="Instagram"></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/browse">Browse Properties</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>For Property Owners</h3>
+          <ul>
+            <li><a href="/list-property">List Your Property</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/resources">Owner Resources</a></li>
+            <li><a href="/faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <ul>
+            <li>📞 +251 911 234 567</li>
+            <li>✉️ info@shegabet.com</li>
+            <li>📍 Addis Ababa, Ethiopia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Shegabet. All Rights Reserved.</p>
+        <ul class="footer-links">
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/cookies">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+   <script>
+    // Add some interactive animations
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInputs = document.querySelectorAll('.search-inputs input, .search-inputs select');
+      
+      searchInputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.parentElement.style.transform = 'translateY(-8px)';
+          this.parentElement.parentElement.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.25)';
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.parentElement.style.transform = 'translateY(-5px)';
+          this.parentElement.parentElement.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
+        });
+      });
+      
+      // Add typing effect to the heading
+      const heading = document.querySelector('.hero-content h1');
+      const originalText = heading.textContent;
+      heading.textContent = '';
+      
+      let i = 0;
+      const typeWriter = () => {
+        if (i < originalText.length) {
+          heading.textContent += originalText.charAt(i);
+          i++;
+          setTimeout(typeWriter, 50);
+        }
+      };
+      
+      // Start typing animation after a short delay
+      setTimeout(typeWriter, 500);
+    });
+  </script>
+</body>
+</html>
